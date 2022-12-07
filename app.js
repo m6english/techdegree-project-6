@@ -1,19 +1,17 @@
 const keyboard = document.getElementById('qwerty');
 const phrase = document.getElementById('phrase');
 const btnReset = document.querySelector('.btn__reset');
-let missed = 0;
 const overlay = document.getElementById('overlay');
-const btnNew = document.querySelector('.btn_new');
 const phraseUl = document.querySelector('#phrase ul');
 const clearButtons = document.querySelectorAll('button');
 let heart = document.querySelectorAll('img');
-
+let missed = 0;
 
 const phrases = [
 'I am Beyonce always',
 'Thats what she said',
-'Identity theft is not a joke Jim',
-'Who is justice beaver',
+'Scranton the electirc city',
+'Bears eat beets',
 'Dunder Mifflin Paper Company'
 ];
 
@@ -80,10 +78,6 @@ btnReset.addEventListener( 'click', () => {
 
 });
 
-// Stores the result of getRandomPhraseAsArray function in variable. Calls addPhraseToDisplay using that variable as an argument
-
-
-
 // Responds to user input via clicks on the keyboard
 keyboard.addEventListener( 'click', e => {
     if ( e.target.tagName === 'BUTTON' && e.target.className !== 'chosen' ) {
@@ -100,7 +94,8 @@ keyboard.addEventListener( 'click', e => {
 const newGame = () => {
     missed = 0;
     phraseUl.innerHTML = '';
-    addPhraseToDisplay(randomPhrase);
+    let newPhrase = getRandomPhraseAsArray(phrases)
+    addPhraseToDisplay(newPhrase);
     for ( let i = 0; i < clearButtons.length; i++ ) {
         clearButtons[i].classList.remove('chosen');
         for ( let i = 0; i < heart.length; i++ ) {
