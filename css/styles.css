@@ -76,6 +76,16 @@ button {
 }
 
 /* Phrase */
+@keyframes slideInTop {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+
 
 .letter {
   font-size: var(--font-size-medium);
@@ -86,7 +96,9 @@ button {
   color: transparent;
   background: var(--color-neutral-light);
   border-radius: 5px;
+
 }
+
 
 .space {
   width: 15px;
@@ -95,6 +107,7 @@ button {
 .show {
   color: #000;
   background-color: #76CE82;
+  animation: .8s ease-out 0s 1 slideInTop;
 }
 
 /* Keyboard */
