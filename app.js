@@ -37,7 +37,7 @@ const checkLetter = button => {
     const letters = document.querySelectorAll('li');
     let match = null;
     for ( let i = 0; i < letters.length; i++ ) {
-        if ( letters[i].textContent.toLowerCase === button ){
+        if ( letters[i].textContent.toLowerCase === button ) {
             letters[i].classList.add('show');
             match = button;
         }
@@ -46,12 +46,12 @@ const checkLetter = button => {
 }
 
 // Checks to see if the player won
-const checkWin = () => {
+// const checkWin = () => {
 
-}
+// }
 
 // Dismisses overlay when user clicks start
-btnReset.addEventListener('click', () => {
+btnReset.addEventListener( 'click', () => {
     const overlay = document.getElementById('overlay');
     overlay.style.display = 'none';
     const randomPhrase = getRandomPhraseAsArray(phrases);
@@ -60,10 +60,11 @@ btnReset.addEventListener('click', () => {
 });
 
 
-keyboard.addEventListener('click', e => {
+keyboard.addEventListener( 'click', e => {
     let letterMatch = checkLetter(e.target.textContent);
     if ( e.target.tagName === 'BUTTON' && e.target.className !== 'chosen' ) {
         e.target.classList.add('chosen');
+        e.target.disabled = true;
         if ( letterMatch === null ) {
             missed++;
     }
