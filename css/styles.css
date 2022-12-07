@@ -124,7 +124,8 @@ button {
   color: #FFFFFF;
 }
 
-.btn__reset {
+.btn__reset,
+.btn_new {
   padding: 8px;
   margin: 50px auto;
   background: #FFFFFF;
