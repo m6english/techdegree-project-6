@@ -2,6 +2,7 @@ const keyboard = document.getElementById('qwerty');
 const phrase = document.getElementById('phrase');
 const btnReset = document.querySelector('.btn__reset');
 let missed = 0;
+const overlay = document.getElementById('overlay');
 const phrases = [
 'I am Beyonce always',
 'Thats what she said',
@@ -37,7 +38,7 @@ const checkLetter = button => {
     const letters = document.querySelectorAll('li');
     let match = null;
     for ( let i = 0; i < letters.length; i++ ) {
-        if ( letters[i].textContent.toLowerCase === button ) {
+        if ( letters[i].textContent.toLowerCase() === button ) {
             letters[i].classList.add('show');
             match = button;
         }
@@ -45,14 +46,24 @@ const checkLetter = button => {
     return match;
 }
 
-// Checks to see if the player won
-// const checkWin = () => {
-
-// }
+//Checks to see if the player won
+const checkWin = () => {
+    const letterLi = document.getElementsByClassName('letter');
+    const showLi = document.getElementsByClassName('show');
+    const title = document.querySelector('.title');
+    if ( letterLi.length === showLi.length ) {
+        overlay.classList.add('win');
+        overlay.style.display = 'flex';
+        title.innerHTML = 'You Won!';
+    } else if ( missed > 4 ) {
+        overlay.classList.add('lose');
+        overlay.style.display = 'flex';
+        title.innerHTML = 'You Lost :(';
+    }
+}
 
 // Dismisses overlay when user clicks start
 btnReset.addEventListener( 'click', () => {
-    const overlay = document.getElementById('overlay');
     overlay.style.display = 'none';
     const randomPhrase = getRandomPhraseAsArray(phrases);
     addPhraseToDisplay(randomPhrase);
@@ -61,13 +72,15 @@ btnReset.addEventListener( 'click', () => {
 
 
 keyboard.addEventListener( 'click', e => {
-    let letterMatch = checkLetter(e.target.textContent);
     if ( e.target.tagName === 'BUTTON' && e.target.className !== 'chosen' ) {
         e.target.classList.add('chosen');
         e.target.disabled = true;
+        let letterMatch = checkLetter(e.target.textContent);
         if ( letterMatch === null ) {
+            let heart = document.querySelectorAll('img');
+            heart[missed].src = 'images/lostHeart.png';
             missed++;
     }
-}
+} return checkWin();
 });
 
