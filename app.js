@@ -12,35 +12,34 @@ const phrases = [
 
 // Gets random phrases
 const getRandomPhraseAsArray = arr => {
-    const index = Math.floor(Math.random() * arr.length);
-    return arr[index]
+    const index = arr[Math.floor(Math.random() * arr.length)];
+    return index.split('');
 }
 
 // Adds phrase to the display
 const addPhraseToDisplay = arr => {
+    const phraseUl = document.querySelector('#phrase ul');
     for ( let i = 0; i < arr.length; i++ ) {
-        const li = document.createElement('li');
-        li.textContent = arr[i];
-        const phrase = document.getElementById('phrase');
-        phrase.appendChild(li);
+        const phraseLi = document.createElement('li');
+        phraseLi.textContent = arr[i];
+        phraseUl.appendChild(phraseLi);
         if ( arr[i] === " ") {
-            li.className = 'space';
+            phraseLi.className = 'space';
         } else {
-            li.className = 'letter';
+            phraseLi.className = 'letter';
         }
     }
 }
+
 
 // Checks to see if letter is correct
 const checkLetter = button => {
     const letters = document.querySelectorAll('li');
     let match = null;
     for ( let i = 0; i < letters.length; i++ ) {
-        if ( button === letters[i].textContent ){
-            letters.className = 'show';
+        if ( letters[i].textContent.toLowerCase === button ){
+            letters[i].classList.add('show');
             match = button;
-        }  else {
-            match = false;
         }
     } 
     return match;
@@ -57,17 +56,17 @@ btnReset.addEventListener('click', () => {
     overlay.style.display = 'none';
     const randomPhrase = getRandomPhraseAsArray(phrases);
     addPhraseToDisplay(randomPhrase);
-    
-})
+
+});
 
 
 keyboard.addEventListener('click', e => {
-    if ( e.target.tagName !== 'BUTTON' || e.target.className === 'chosen' ) {
-
-    } else {
-        e.target.className = 'chosen';
-        
-
+    let letterMatch = checkLetter(e.target.textContent);
+    if ( e.target.tagName === 'BUTTON' && e.target.className !== 'chosen' ) {
+        e.target.classList.add('chosen');
+        if ( letterMatch === null ) {
+            missed++;
     }
-})
+}
+});
 
